@@ -1,0 +1,6 @@
+﻿<manifest>
+    <uses-feature android:name="android.hardware.LOCATION.GPS" android:required="true" />
+    <uses-feature android:name="android.hardware.LOCATION.NETWORK" android:required="false" />
+    <uses-feature android:name="some.namedfeature.HELLO" android:required="true" />
+    <uses-feature android:name="android.hardware.CAMERA" />
+</manifest>

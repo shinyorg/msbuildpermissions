@@ -1,0 +1,3 @@
+﻿<manifest>
+    <uses-feature android:name="android.hardware.LOCATION.GPS" android:required="true" />
+</manifest>

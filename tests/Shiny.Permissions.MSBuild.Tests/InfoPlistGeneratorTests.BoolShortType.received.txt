@@ -1,0 +1,6 @@
+﻿<plist>
+    <dict>
+        <key>K</key>
+        <true/>
+    </dict>
+</plist>

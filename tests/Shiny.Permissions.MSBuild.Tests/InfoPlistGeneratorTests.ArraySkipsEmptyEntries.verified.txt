@@ -1,0 +1,9 @@
+﻿<plist>
+    <dict>
+        <key>K</key>
+        <array>
+            <string>a</string>
+            <string>b</string>
+        </array>
+    </dict>
+</plist>

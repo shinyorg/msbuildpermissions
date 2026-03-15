@@ -1,0 +1,3 @@
+﻿<manifest>
+    <uses-feature android:name="android.hardware.CAMERA" android:required="true" />
+</manifest>
