@@ -1,6 +1,0 @@
-﻿<plist>
-    <dict>
-        <key>SomeKey</key>
-        <string>hello</string>
-    </dict>
-</plist>

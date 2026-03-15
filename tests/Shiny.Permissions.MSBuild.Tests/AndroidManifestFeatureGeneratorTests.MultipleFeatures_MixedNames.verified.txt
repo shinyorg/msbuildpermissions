@@ -1,4 +1,5 @@
-﻿<manifest>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-feature android:name="android.hardware.LOCATION.GPS" android:required="true" />
     <uses-feature android:name="android.hardware.LOCATION.NETWORK" android:required="false" />
     <uses-feature android:name="some.namedfeature.HELLO" android:required="true" />

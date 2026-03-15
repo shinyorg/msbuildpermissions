@@ -6,12 +6,6 @@ namespace Shiny.Permissions.MSBuild.Tests;
 public class AndroidManifestFeatureGeneratorTests
 {
     [Fact]
-    public Task Empty()
-    {
-        return Verify(AndroidManifestFeatureGenerator.GenerateManifestXml([]));
-    }
-
-    [Fact]
     public Task SingleShortName()
     {
         var features = new[]

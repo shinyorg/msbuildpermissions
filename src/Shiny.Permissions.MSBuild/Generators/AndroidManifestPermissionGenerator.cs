@@ -39,7 +39,8 @@ public static class AndroidManifestPermissionGenerator
     public static string GenerateManifestXml(IEnumerable<AndroidPermission> permissions)
     {
         var sb = new StringBuilder();
-        sb.AppendLine("<manifest>");
+        sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+        sb.AppendLine("<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\">");
 
         foreach (var permission in permissions)
         {

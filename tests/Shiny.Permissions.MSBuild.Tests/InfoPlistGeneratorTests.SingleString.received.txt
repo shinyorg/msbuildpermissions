@@ -1,6 +1,0 @@
-﻿<plist>
-    <dict>
-        <key>NSCameraUsageDescription</key>
-        <string>Camera access</string>
-    </dict>
-</plist>

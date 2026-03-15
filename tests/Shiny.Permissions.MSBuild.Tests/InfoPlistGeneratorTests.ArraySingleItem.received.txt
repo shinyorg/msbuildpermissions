@@ -1,8 +1,0 @@
-﻿<plist>
-    <dict>
-        <key>K</key>
-        <array>
-            <string>single.item</string>
-        </array>
-    </dict>
-</plist>

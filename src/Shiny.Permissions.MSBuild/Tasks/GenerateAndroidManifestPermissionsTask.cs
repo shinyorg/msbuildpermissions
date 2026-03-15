@@ -16,6 +16,9 @@ public class GenerateAndroidManifestPermissionsTask : Task
 
     public override bool Execute()
     {
+        if (Permissions.Length == 0)
+            return true;
+
         var models = new AndroidPermission[Permissions.Length];
         for (var i = 0; i < Permissions.Length; i++)
         {

@@ -6,12 +6,6 @@ namespace Shiny.Permissions.MSBuild.Tests;
 public class InfoPlistGeneratorTests
 {
     [Fact]
-    public Task Empty()
-    {
-        return Verify(InfoPlistGenerator.GeneratePlistXml([]));
-    }
-
-    [Fact]
     public Task SingleString()
     {
         var entries = new[]

@@ -16,6 +16,9 @@ public class GenerateAndroidManifestFeaturesTask : Task
 
     public override bool Execute()
     {
+        if (Features.Length == 0)
+            return true;
+
         var models = new AndroidFeature[Features.Length];
         for (var i = 0; i < Features.Length; i++)
         {

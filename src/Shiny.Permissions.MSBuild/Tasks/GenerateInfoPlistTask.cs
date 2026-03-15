@@ -16,6 +16,9 @@ public class GenerateInfoPlistTask : Task
 
     public override bool Execute()
     {
+        if (Entries.Length == 0)
+            return true;
+
         var models = new InfoPlistEntry[Entries.Length];
         for (var i = 0; i < Entries.Length; i++)
         {

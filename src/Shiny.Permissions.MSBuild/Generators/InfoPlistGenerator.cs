@@ -46,7 +46,9 @@ public static class InfoPlistGenerator
     public static string GeneratePlistXml(IEnumerable<InfoPlistEntry> entries)
     {
         var sb = new StringBuilder();
-        sb.AppendLine("<plist>");
+        sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        sb.AppendLine("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList1.0.dtd\">");
+        sb.AppendLine("<plist version=\"1.0\">");
         sb.AppendLine("    <dict>");
 
         foreach (var entry in entries)

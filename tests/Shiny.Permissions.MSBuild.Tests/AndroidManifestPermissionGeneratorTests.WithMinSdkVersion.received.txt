@@ -1,3 +1,0 @@
-﻿<manifest>
-    <uses-permission android:name="android.permission.CAMERA" android:minSdkVersion="21" />
-</manifest>

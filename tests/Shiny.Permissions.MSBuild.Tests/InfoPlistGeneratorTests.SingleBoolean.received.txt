@@ -1,6 +1,0 @@
-﻿<plist>
-    <dict>
-        <key>UIRequiresPersistentWiFi</key>
-        <true/>
-    </dict>
-</plist>

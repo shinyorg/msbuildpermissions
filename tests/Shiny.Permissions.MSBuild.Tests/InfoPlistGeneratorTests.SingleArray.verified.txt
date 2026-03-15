@@ -1,1 +1,12 @@
-﻿
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>BGTaskSchedulerPermittedIdentifiers</key>
+        <array>
+            <string>com.shiny.job</string>
+            <string>com.shiny.jobpower</string>
+            <string>com.shiny.jobnet</string>
+        </array>
+    </dict>
+</plist>

@@ -36,7 +36,8 @@ public static class AndroidManifestFeatureGenerator
     public static string GenerateManifestXml(IEnumerable<AndroidFeature> features)
     {
         var sb = new StringBuilder();
-        sb.AppendLine("<manifest>");
+        sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+        sb.AppendLine("<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\">");
 
         foreach (var feature in features)
         {

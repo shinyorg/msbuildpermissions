@@ -1,4 +1,0 @@
-﻿<plist>
-    <dict>
-    </dict>
-</plist>

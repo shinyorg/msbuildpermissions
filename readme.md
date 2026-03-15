@@ -143,8 +143,6 @@ TODO
 ## TODO
 - Duplicate keys in Info.plist, AndroidManifest.xml error
 - If AndroidManifestPermission/AndroidManifestFeature file creation collision
-- Don't generate empty files
-- Generate properly formatted manifests & plists with XML declaration, root elements, etc.
 
 ## MAUI PERMISSIONS:
 - BluetoothLE

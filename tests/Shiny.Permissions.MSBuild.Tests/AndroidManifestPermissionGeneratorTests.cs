@@ -6,12 +6,6 @@ namespace Shiny.Permissions.MSBuild.Tests;
 public class AndroidManifestPermissionGeneratorTests
 {
     [Fact]
-    public Task Empty()
-    {
-        return Verify(AndroidManifestPermissionGenerator.GenerateManifestXml([]));
-    }
-
-    [Fact]
     public Task SingleShortName()
     {
         var permissions = new[]
