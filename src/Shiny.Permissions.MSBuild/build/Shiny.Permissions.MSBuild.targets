@@ -39,7 +39,7 @@
     Condition="'@(InfoPlistPermission)' != ''">
     <GenerateInfoPlistTask
       Entries="@(InfoPlistPermission)"
-      OutputPath="$(IntermediateOutputPath)InfoPlist.xml"
+      OutputPath="$(IntermediateOutputPath)Info.plist"
     />
   </Target>
 </Project>
