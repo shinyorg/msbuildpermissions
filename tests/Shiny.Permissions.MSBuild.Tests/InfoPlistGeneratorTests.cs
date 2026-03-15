@@ -141,4 +141,17 @@ public class InfoPlistGeneratorTests
         };
         return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
     }
+
+    [Fact]
+    public void DuplicateKey_ThrowsError()
+    {
+        var entries = new[]
+        {
+            new InfoPlistEntry { Key = "NSCameraUsageDescription", Type = "string", Value = "Camera" },
+            new InfoPlistEntry { Key = "NSCameraUsageDescription", Type = "string", Value = "Camera access" },
+        };
+        var ex = Assert.Throws<InvalidOperationException>(
+            () => InfoPlistGenerator.GeneratePlistXml(entries));
+        Assert.Contains("NSCameraUsageDescription", ex.Message);
+    }
 }

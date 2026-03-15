@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
@@ -31,14 +32,23 @@ public class GenerateInfoPlistTask : Task
             };
         }
 
-        var xml = InfoPlistGenerator.GeneratePlistXml(models);
+        try
+        {
+            var xml = InfoPlistGenerator.GeneratePlistXml(models);
 
-        var dir = Path.GetDirectoryName(OutputPath);
-        if (!string.IsNullOrEmpty(dir))
-            Directory.CreateDirectory(dir);
+            var dir = Path.GetDirectoryName(OutputPath);
+            if (!string.IsNullOrEmpty(dir))
+                Directory.CreateDirectory(dir);
 
-        File.WriteAllText(OutputPath, xml);
-        Log.LogMessage(MessageImportance.Normal, $"Generated Info.plist at {OutputPath}");
+            File.WriteAllText(OutputPath, xml);
+            Log.LogMessage(MessageImportance.Normal, $"Generated Info.plist at {OutputPath}");
+        }
+        catch (InvalidOperationException ex)
+        {
+            Log.LogError(ex.Message);
+            return false;
+        }
+
         return true;
     }
 }

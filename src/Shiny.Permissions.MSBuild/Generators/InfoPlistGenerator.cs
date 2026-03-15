@@ -45,13 +45,23 @@ public static class InfoPlistGenerator
 
     public static string GeneratePlistXml(IEnumerable<InfoPlistEntry> entries)
     {
+        var entryList = entries.ToList();
+
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var entry in entryList)
+        {
+            if (!seen.Add(entry.Key))
+                throw new InvalidOperationException(
+                    $"Duplicate Info.plist key '{entry.Key}'");
+        }
+
         var sb = new StringBuilder();
         sb.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         sb.AppendLine("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList1.0.dtd\">");
         sb.AppendLine("<plist version=\"1.0\">");
         sb.AppendLine("    <dict>");
 
-        foreach (var entry in entries)
+        foreach (var entry in entryList)
         {
             var lines = GenerateEntry(entry).Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var line in lines)
