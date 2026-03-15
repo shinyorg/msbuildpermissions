@@ -138,22 +138,35 @@ All generated XML files are written to `$(IntermediateOutputPath)` (typically `o
 
 
 
-TODO
-
-## TODO
-- Duplicate keys in Info.plist, AndroidManifest.xml error
-- If AndroidManifestPermission/AndroidManifestFeature file creation collision
+# TODO
 
 ## MAUI PERMISSIONS:
 - BluetoothLE
 - Location (not both)
 - LocationBackground (not both)
+- Push
+    iOS: UIBackgroundModes: remote-notification (also add entitlement for push notifications?)
+    Android: android.permission.POST_NOTIFICATIONS
 - Microphone
+  - Contacts
+      iOS: NSContactsUsageDescription: string
+      Android: android.permission.READ_CONTACTS
+
 - Calendar
+    iOS: NSCalendarsUsageDescription: string
+    Android: android.permission.READ_CALENDAR
 - Camera
-- MediaPicker
+    iOS: NSCameraUsageDescription: string
+    Android: android.permission.CAMERA
+- Photos
+    iOS: NSPhotoLibraryUsageDescription: string
+    Android: android.permission.READ_EXTERNAL_STORAGE
 - Maps
+    iOS: NSLocationWhenInUseUsageDescription: string
+    Android: android.permission.ACCESS_FINE_LOCATION
 - Biometric
+    iOS: NSFaceIDUsageDescription: string
+    Android: android.permission.USE_BIOMETRIC
 
 ### GIVEN:
 csproj
@@ -162,6 +175,31 @@ csproj
     <MauiPermission Include="BluetoothLE" />
 </ItemGroup>
 ```
+
+	<!--#if (jobs || usepush || gps || geofencing || beacons || bluetoothle || blehosting || mediaelement)-->
+	<key>UIBackgroundModes</key>
+	<array>
+		<!--#if (jobs || usepush)-->
+		<string>processing</string>
+		<string>fetch</string>
+		<!--#endif-->
+		<!--#if (gps || geofencing || beacons)-->
+		<string>location</string>
+		<!--#endif-->
+		<!--#if (bluetoothle || beacons)-->
+		<string>bluetooth-central</string>
+		<!--#endif-->
+		<!--#if (blehosting)-->
+		<string>bluetooth-peripheral</string>
+		<!--#endif-->
+		<!--#if (usepush)-->
+		<string>remote-notification</string>
+		<!--#endif-->
+		<!--#if (mediaelement)-->
+		<string>audio</string>
+		<!--#endif-->
+	</array>
+
 
 ### GENERATED FILES:
 
