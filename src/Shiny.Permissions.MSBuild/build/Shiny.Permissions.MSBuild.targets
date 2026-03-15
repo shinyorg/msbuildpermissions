@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <UsingTask
+    TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateAndroidManifestPermissionsTask"
+    AssemblyFile="$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll"
+  />
+  <UsingTask
+    TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateAndroidManifestFeaturesTask"
+    AssemblyFile="$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll"
+  />
+  <UsingTask
+    TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateInfoPlistTask"
+    AssemblyFile="$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll"
+  />
+
+  <Target
+    Name="GenerateAndroidManifestPermissions"
+    BeforeTargets="Build"
+    Condition="'@(AndroidManifestPermission)' != ''">
+    <GenerateAndroidManifestPermissionsTask
+      Permissions="@(AndroidManifestPermission)"
+      OutputPath="$(IntermediateOutputPath)AndroidManifestPermissions.xml"
+    />
+  </Target>
+
+  <Target
+    Name="GenerateAndroidManifestFeatures"
+    BeforeTargets="Build"
+    Condition="'@(AndroidManifestFeature)' != ''">
+    <GenerateAndroidManifestFeaturesTask
+      Features="@(AndroidManifestFeature)"
+      OutputPath="$(IntermediateOutputPath)AndroidManifestFeatures.xml"
+    />
+  </Target>
+
+  <Target
+    Name="GenerateInfoPlist"
+    BeforeTargets="Build"
+    Condition="'@(InfoPlistPermission)' != ''">
+    <GenerateInfoPlistTask
+      Entries="@(InfoPlistPermission)"
+      OutputPath="$(IntermediateOutputPath)InfoPlist.xml"
+    />
+  </Target>
+</Project>
