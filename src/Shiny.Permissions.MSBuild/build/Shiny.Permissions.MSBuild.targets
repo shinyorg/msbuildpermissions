@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
+  <PropertyGroup>
+    <_ShinyPermissionsAssembly Condition="'$(_ShinyPermissionsAssembly)' == ''">$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll</_ShinyPermissionsAssembly>
+  </PropertyGroup>
+
   <UsingTask
     TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateAndroidManifestTask"
-    AssemblyFile="$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll"
+    AssemblyFile="$(_ShinyPermissionsAssembly)"
   />
   <UsingTask
     TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateInfoPlistTask"
-    AssemblyFile="$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll"
+    AssemblyFile="$(_ShinyPermissionsAssembly)"
   />
   <UsingTask
     TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateMauiPermissionsTask"
-    AssemblyFile="$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll"
+    AssemblyFile="$(_ShinyPermissionsAssembly)"
   />
 
   <Target

@@ -22,13 +22,11 @@
     <!-- Import Shiny.Permissions.MSBuild from local source for development.
          In a real project, install the NuGet package instead:
            dotnet add package Shiny.Permissions.MSBuild -->
+    <PropertyGroup>
+        <_ShinyPermissionsAssembly>$(MSBuildThisFileDirectory)..\..\src\Shiny.Permissions.MSBuild\bin\Debug\netstandard2.0\Shiny.Permissions.MSBuild.dll</_ShinyPermissionsAssembly>
+    </PropertyGroup>
     <Import Project="..\..\src\Shiny.Permissions.MSBuild\build\Shiny.Permissions.MSBuild.props" />
     <Import Project="..\..\src\Shiny.Permissions.MSBuild\build\Shiny.Permissions.MSBuild.targets" />
-
-    <!-- Override the task assembly path to use the locally-built DLL -->
-    <PropertyGroup>
-        <_ShinyPermissionsAssembly>..\..\src\Shiny.Permissions.MSBuild\bin\Debug\netstandard2.0\Shiny.Permissions.MSBuild.dll</_ShinyPermissionsAssembly>
-    </PropertyGroup>
 
     <!-- =====================================================================
          MAUI Permissions: declare high-level permission sets and the MSBuild
