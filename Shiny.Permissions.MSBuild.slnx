@@ -4,4 +4,7 @@
   </Folder>
   <Project Path="src/Shiny.Permissions.MSBuild/Shiny.Permissions.MSBuild.csproj" />
   <Project Path="tests/Shiny.Permissions.MSBuild.Tests/Shiny.Permissions.MSBuild.Tests.csproj" />
+  <Folder Name="/Samples/">
+    <Project Path="samples/SampleMauiApp/SampleMauiApp.csproj" />
+  </Folder>
 </Solution>

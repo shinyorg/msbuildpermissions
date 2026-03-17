@@ -12,9 +12,57 @@ dotnet add package Shiny.Permissions.MSBuild
 
 Once installed, the `.props` and `.targets` files are imported automatically. Generation runs before the `Build` target and only when items are defined.
 
+## MAUI Permissions
+
+The simplest way to declare permissions for a .NET MAUI app. Add `MauiPermission` items and the task generates both Android manifest entries and iOS Info.plist entries automatically:
+
+```xml
+<ItemGroup>
+    <MauiPermission Include="Camera" />
+    <MauiPermission Include="BluetoothLE" />
+    <MauiPermission Include="Location" />
+    <MauiPermission Include="Push" />
+    <MauiPermission Include="Biometric" />
+    <MauiPermission Include="Contacts" />
+</ItemGroup>
+```
+
+### Known Permission Sets
+
+| Permission | Android Permissions | iOS Entries |
+|---|---|---|
+| `BluetoothLE` | `BLUETOOTH`, `BLUETOOTH_ADMIN`, `BLUETOOTH_CONNECT`, `BLUETOOTH_SCAN`, `ACCESS_COARSE_LOCATION`, `ACCESS_FINE_LOCATION` | `UIBackgroundModes` (bluetooth-central), `NSBluetoothAlwaysUsageDescription` |
+| `Location` | `ACCESS_COARSE_LOCATION`, `ACCESS_FINE_LOCATION` + features: `LOCATION.GPS`, `LOCATION.NETWORK` | `UIBackgroundModes` (location), `NSLocationAlwaysUsageDescription`, `NSLocationWhenInUseUsageDescription`, `NSLocationAlwaysAndWhenInUseUsageDescription` |
+| `LocationBackground` | `FOREGROUND_SERVICE_LOCATION`, `FOREGROUND_SERVICE`, `ACCESS_COARSE_LOCATION`, `ACCESS_FINE_LOCATION` + features: `LOCATION.GPS`, `LOCATION.NETWORK` | `UIBackgroundModes` (location), `NSLocationAlwaysUsageDescription`, `NSLocationWhenInUseUsageDescription`, `NSLocationAlwaysAndWhenInUseUsageDescription` |
+| `Geofencing` | `ACCESS_BACKGROUND_LOCATION`, `ACCESS_COARSE_LOCATION`, `ACCESS_FINE_LOCATION` + features: `LOCATION.GPS`, `LOCATION.NETWORK` | `UIBackgroundModes` (location), `NSLocationAlwaysUsageDescription`, `NSLocationWhenInUseUsageDescription`, `NSLocationAlwaysAndWhenInUseUsageDescription` |
+| `Push` | `POST_NOTIFICATIONS` | `UIBackgroundModes` (remote-notification) |
+| `Microphone` | `RECORD_AUDIO` | `NSMicrophoneUsageDescription` |
+| `Contacts` | `READ_CONTACTS` | `NSContactsUsageDescription` |
+| `Calendar` | `READ_CALENDAR` | `NSCalendarsUsageDescription` |
+| `Camera` | `CAMERA` | `NSCameraUsageDescription` |
+| `Photos` | `READ_EXTERNAL_STORAGE` | `NSPhotoLibraryUsageDescription` |
+| `Maps` | `ACCESS_FINE_LOCATION` | `NSLocationWhenInUseUsageDescription` |
+| `Biometric` | `USE_BIOMETRIC` | `NSFaceIDUsageDescription` |
+
+### Deduplication and Merging
+
+When multiple permission sets share entries, the generator automatically:
+
+- **Deduplicates** Android permissions and features (e.g. `BluetoothLE` + `Location` both declare `ACCESS_FINE_LOCATION` — it appears only once)
+- **Merges** iOS array entries (e.g. `BluetoothLE` + `Location` + `Push` merge into a single `UIBackgroundModes` array with `bluetooth-central`, `location`, and `remote-notification`)
+
+### Output
+
+`MauiPermission` items generate two files in `$(IntermediateOutputPath)`:
+
+| File | Description |
+|---|---|
+| `AndroidManifest.xml` | Android permissions and features |
+| `Info.plist` | iOS Info.plist entries |
+
 ## Android Manifest Permissions
 
-Add `AndroidManifestPermission` items to your project file:
+For fine-grained control, add `AndroidManifestPermission` items directly:
 
 ```xml
 <ItemGroup>
@@ -25,10 +73,10 @@ Add `AndroidManifestPermission` items to your project file:
 </ItemGroup>
 ```
 
-This generates `$(IntermediateOutputPath)AndroidManifestPermissions.xml`:
+This generates `$(IntermediateOutputPath)AndroidManifest.xml`:
 
 ```xml
-<manifest>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
@@ -59,10 +107,10 @@ Add `AndroidManifestFeature` items to your project file:
 </ItemGroup>
 ```
 
-This generates `$(IntermediateOutputPath)AndroidManifestFeatures.xml`:
+This generates `$(IntermediateOutputPath)AndroidManifest.xml`:
 
 ```xml
-<manifest>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-feature android:name="android.hardware.CAMERA" />
     <uses-feature android:name="android.hardware.LOCATION.GPS" android:required="true" />
     <uses-feature android:name="android.hardware.BLUETOOTH" android:required="false" />
@@ -97,10 +145,10 @@ Add `InfoPlistPermission` items to your project file:
 </ItemGroup>
 ```
 
-This generates `$(IntermediateOutputPath)InfoPlist.xml`:
+This generates `$(IntermediateOutputPath)Info.plist`:
 
 ```xml
-<plist>
+<plist version="1.0">
     <dict>
         <key>NSCameraUsageDescription</key>
         <string>We need camera access for video calls</string>
@@ -125,127 +173,6 @@ This generates `$(IntermediateOutputPath)InfoPlist.xml`:
 | `Type` | No | `string` | Value type: `string`, `boolean` / `bool`, or `array` |
 | `Value` | No | empty | The entry value. For arrays, separate items with `;` |
 
-## Output
+## Samples
 
-All generated XML files are written to `$(IntermediateOutputPath)` (typically `obj/<Configuration>/`). Each target only runs when its corresponding item group contains at least one item.
-
-| Item Group | Output File |
-|---|---|
-| `AndroidManifestPermission` | `AndroidManifestPermissions.xml` |
-| `AndroidManifestFeature` | `AndroidManifestFeatures.xml` |
-| `InfoPlistPermission` | `InfoPlist.xml` |
-
-
-
-
-# TODO
-
-## MAUI PERMISSIONS:
-- BluetoothLE
-- Location (not both)
-- LocationBackground (not both)
-- Push
-    iOS: UIBackgroundModes: remote-notification (also add entitlement for push notifications?)
-    Android: android.permission.POST_NOTIFICATIONS
-- Microphone
-  - Contacts
-      iOS: NSContactsUsageDescription: string
-      Android: android.permission.READ_CONTACTS
-
-- Calendar
-    iOS: NSCalendarsUsageDescription: string
-    Android: android.permission.READ_CALENDAR
-- Camera
-    iOS: NSCameraUsageDescription: string
-    Android: android.permission.CAMERA
-- Photos
-    iOS: NSPhotoLibraryUsageDescription: string
-    Android: android.permission.READ_EXTERNAL_STORAGE
-- Maps
-    iOS: NSLocationWhenInUseUsageDescription: string
-    Android: android.permission.ACCESS_FINE_LOCATION
-- Biometric
-    iOS: NSFaceIDUsageDescription: string
-    Android: android.permission.USE_BIOMETRIC
-
-### GIVEN:
-csproj
-```xml
-<ItemGroup>
-    <MauiPermission Include="BluetoothLE" />
-</ItemGroup>
-```
-
-	<!--#if (jobs || usepush || gps || geofencing || beacons || bluetoothle || blehosting || mediaelement)-->
-	<key>UIBackgroundModes</key>
-	<array>
-		<!--#if (jobs || usepush)-->
-		<string>processing</string>
-		<string>fetch</string>
-		<!--#endif-->
-		<!--#if (gps || geofencing || beacons)-->
-		<string>location</string>
-		<!--#endif-->
-		<!--#if (bluetoothle || beacons)-->
-		<string>bluetooth-central</string>
-		<!--#endif-->
-		<!--#if (blehosting)-->
-		<string>bluetooth-peripheral</string>
-		<!--#endif-->
-		<!--#if (usepush)-->
-		<string>remote-notification</string>
-		<!--#endif-->
-		<!--#if (mediaelement)-->
-		<string>audio</string>
-		<!--#endif-->
-	</array>
-
-
-### GENERATED FILES:
-
-AndroidManifest.xml
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.BATTERY_STATS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />      
-
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
-
-    <uses-feature android:name="android.hardware.LOCATION.GPS" android:required="false" />
-    <uses-feature android:name="android.hardware.LOCATION.NETWORK" android:required="false" />
-</manifest>
-```
-
-Info.plist
-```xml
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-  <plist version="1.0">
-  <dict>
-  
-        <key>NSLocationAlwaysUsageDescription</key>
-        <string>Say something useful here that your users will understand</string>
-        
-        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-        <string>Say something useful here that your users will understand</string>
-        
-        <key>NSLocationWhenInUseUsageDescription</key>
-        <string>Say something useful here that your users will understand</string>
-        
-        <key>UIBackgroundModes</key>
-        <array>
-        
-            <string>location</string>
-            
-        </array>
-          
-</dict>
-</plist>
-```
+See the [`samples/SampleMauiApp`](samples/SampleMauiApp) project for a .NET MAUI app demonstrating `MauiPermission` with Camera, BluetoothLE, Location, Push, Biometric, and Contacts.

@@ -1,0 +1,29 @@
+﻿{
+  AndroidManifest:
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-feature android:name="android.hardware.LOCATION.GPS" android:required="false" />
+    <uses-feature android:name="android.hardware.LOCATION.NETWORK" android:required="false" />
+</manifest>,
+  InfoPlist:
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>UIBackgroundModes</key>
+        <array>
+            <string>location</string>
+        </array>
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>Say something useful here that your users will understand</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>Say something useful here that your users will understand</string>
+        <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+        <string>Say something useful here that your users will understand</string>
+    </dict>
+</plist>
+}

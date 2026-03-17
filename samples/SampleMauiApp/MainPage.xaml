@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SampleMauiApp.MainPage"
+             Title="Permissions Sample">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Label Text="Shiny.Permissions.MSBuild Sample"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <Label Text="This app declares the following MauiPermission items. The MSBuild task automatically generates the correct Android manifest and iOS Info.plist entries at build time."
+                   FontSize="14"
+                   TextColor="Gray" />
+
+            <BoxView HeightRequest="1" Color="LightGray" />
+
+            <!-- Camera -->
+            <Frame Padding="12" CornerRadius="8" BorderColor="LightGray">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="📷 Camera" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="Android: android.permission.CAMERA" FontSize="12" TextColor="Gray" />
+                    <Label Text="iOS: NSCameraUsageDescription" FontSize="12" TextColor="Gray" />
+                    <Button Text="Request Camera" Clicked="OnRequestCamera" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Bluetooth LE -->
+            <Frame Padding="12" CornerRadius="8" BorderColor="LightGray">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="📶 Bluetooth LE" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="Android: BLUETOOTH, BLUETOOTH_ADMIN, BLUETOOTH_CONNECT, BLUETOOTH_SCAN + location" FontSize="12" TextColor="Gray" />
+                    <Label Text="iOS: UIBackgroundModes (bluetooth-central), NSBluetoothAlwaysUsageDescription" FontSize="12" TextColor="Gray" />
+                    <Button Text="Request Bluetooth" Clicked="OnRequestBluetooth" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Location -->
+            <Frame Padding="12" CornerRadius="8" BorderColor="LightGray">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="📍 Location" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="Android: ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION" FontSize="12" TextColor="Gray" />
+                    <Label Text="iOS: UIBackgroundModes (location), NSLocation*UsageDescription" FontSize="12" TextColor="Gray" />
+                    <Button Text="Request Location" Clicked="OnRequestLocation" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Push Notifications -->
+            <Frame Padding="12" CornerRadius="8" BorderColor="LightGray">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="🔔 Push Notifications" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="Android: POST_NOTIFICATIONS" FontSize="12" TextColor="Gray" />
+                    <Label Text="iOS: UIBackgroundModes (remote-notification)" FontSize="12" TextColor="Gray" />
+                    <Button Text="Request Push" Clicked="OnRequestPush" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Biometric -->
+            <Frame Padding="12" CornerRadius="8" BorderColor="LightGray">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="🔐 Biometric" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="Android: USE_BIOMETRIC" FontSize="12" TextColor="Gray" />
+                    <Label Text="iOS: NSFaceIDUsageDescription" FontSize="12" TextColor="Gray" />
+                    <Button Text="Request Biometric" Clicked="OnRequestBiometric" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Contacts -->
+            <Frame Padding="12" CornerRadius="8" BorderColor="LightGray">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="👤 Contacts" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="Android: READ_CONTACTS" FontSize="12" TextColor="Gray" />
+                    <Label Text="iOS: NSContactsUsageDescription" FontSize="12" TextColor="Gray" />
+                    <Button Text="Request Contacts" Clicked="OnRequestContacts" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

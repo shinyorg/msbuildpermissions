@@ -1,0 +1,14 @@
+{
+  "name": "shiny-plugins",
+  "owner": {
+    "name": "Shiny",
+    "email": "hello@shinylib.net"
+  },
+  "plugins": [
+    {
+      "name": "shiny-permissions-msbuild",
+      "source": "./",
+      "description": "Claude Code plugin for Shiny.Permissions.MSBuild - declare high-level MAUI permissions or fine-grained Android manifest and iOS Info.plist entries via MSBuild items"
+    }
+  ]
+}

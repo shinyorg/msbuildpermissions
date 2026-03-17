@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>SampleMauiApp</RootNamespace>
+        <UseMaui>true</UseMaui>
+        <SingleProject>true</SingleProject>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <ApplicationTitle>SampleMauiApp</ApplicationTitle>
+        <ApplicationId>com.shinyorg.samplemauiapp</ApplicationId>
+        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+        <ApplicationVersion>1</ApplicationVersion>
+
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21</SupportedOSPlatformVersion>
+    </PropertyGroup>
+
+    <!-- Import Shiny.Permissions.MSBuild from local source for development.
+         In a real project, install the NuGet package instead:
+           dotnet add package Shiny.Permissions.MSBuild -->
+    <Import Project="..\..\src\Shiny.Permissions.MSBuild\build\Shiny.Permissions.MSBuild.props" />
+    <Import Project="..\..\src\Shiny.Permissions.MSBuild\build\Shiny.Permissions.MSBuild.targets" />
+
+    <!-- Override the task assembly path to use the locally-built DLL -->
+    <PropertyGroup>
+        <_ShinyPermissionsAssembly>..\..\src\Shiny.Permissions.MSBuild\bin\Debug\netstandard2.0\Shiny.Permissions.MSBuild.dll</_ShinyPermissionsAssembly>
+    </PropertyGroup>
+
+    <!-- =====================================================================
+         MAUI Permissions: declare high-level permission sets and the MSBuild
+         task generates the correct Android manifest entries and iOS Info.plist
+         entries automatically at build time.
+         ===================================================================== -->
+    <ItemGroup>
+        <!-- Camera access for taking photos -->
+        <MauiPermission Include="Camera" />
+
+        <!-- Bluetooth LE for device scanning and connectivity -->
+        <MauiPermission Include="BluetoothLE" />
+
+        <!-- GPS / network location -->
+        <MauiPermission Include="Location" />
+
+        <!-- Push notifications -->
+        <MauiPermission Include="Push" />
+
+        <!-- Biometric authentication (Face ID / fingerprint) -->
+        <MauiPermission Include="Biometric" />
+
+        <!-- Read contacts -->
+        <MauiPermission Include="Contacts" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <MauiFont Include="Resources\Fonts\*" />
+        <MauiImage Include="Resources\Images\*" />
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    </ItemGroup>
+
+</Project>

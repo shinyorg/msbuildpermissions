@@ -8,6 +8,10 @@
     TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateInfoPlistTask"
     AssemblyFile="$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll"
   />
+  <UsingTask
+    TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateMauiPermissionsTask"
+    AssemblyFile="$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll"
+  />
 
   <Target
     Name="GenerateAndroidManifest"
@@ -27,6 +31,17 @@
     <GenerateInfoPlistTask
       Entries="@(InfoPlistPermission)"
       OutputPath="$(IntermediateOutputPath)Info.plist"
+    />
+  </Target>
+
+  <Target
+    Name="GenerateMauiPermissions"
+    BeforeTargets="Build"
+    Condition="'@(MauiPermission)' != ''">
+    <GenerateMauiPermissionsTask
+      Permissions="@(MauiPermission)"
+      AndroidManifestOutputPath="$(IntermediateOutputPath)AndroidManifest.xml"
+      InfoPlistOutputPath="$(IntermediateOutputPath)Info.plist"
     />
   </Target>
 </Project>

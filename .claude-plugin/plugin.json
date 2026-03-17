@@ -1,0 +1,27 @@
+{
+  "name": "shiny-permissions-msbuild",
+  "version": "1.0.0",
+  "description": "Claude Code plugin for Shiny.Permissions.MSBuild - declare high-level MAUI permissions or fine-grained Android manifest and iOS Info.plist entries via MSBuild items",
+  "author": {
+    "name": "Shiny",
+    "email": "hello@shinylib.net",
+    "url": "https://shinylib.net"
+  },
+  "homepage": "https://github.com/shinyorg/Shiny.Permissions.MSBuild",
+  "repository": "https://github.com/shinyorg/Shiny.Permissions.MSBuild",
+  "license": "MIT",
+  "keywords": [
+    "dotnet",
+    "maui",
+    "msbuild",
+    "permissions",
+    "android",
+    "ios",
+    "manifest",
+    "plist",
+    "info-plist",
+    "uses-permission",
+    "uses-feature"
+  ],
+  "skills": "./skills/"
+}
