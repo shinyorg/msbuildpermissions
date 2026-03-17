@@ -8,6 +8,7 @@
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <IsPackable>false</IsPackable>
 
         <ApplicationTitle>SampleMauiApp</ApplicationTitle>
         <ApplicationId>com.shinyorg.samplemauiapp</ApplicationId>
