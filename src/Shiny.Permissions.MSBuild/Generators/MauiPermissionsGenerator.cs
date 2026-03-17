@@ -9,12 +9,11 @@ public static class MauiPermissionsGenerator
 {
     const string DefaultUsageDescription = "Say something useful here that your users will understand";
 
-    public static IReadOnlyList<string> KnownPermissions { get; } = new[]
-    {
+    public static IReadOnlyList<string> KnownPermissions { get; } = [
         "BluetoothLE", "Location", "LocationBackground", "Geofencing",
         "Push", "Microphone", "Contacts", "Calendar",
         "Camera", "Photos", "Maps", "Biometric"
-    };
+    ];
 
     public static bool IsKnownPermission(string name) => PermissionSets.ContainsKey(name);
 
