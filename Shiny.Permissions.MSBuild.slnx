@@ -3,6 +3,8 @@
     <File Path=".github\workflows\build.yml" />
     <File Path=".github\workflows\sync-skills.yml" />
     <File Path="LICENSE" />
+    <File Path="nuget.png" />
+    <File Path="nuget.txt" />
     <File Path="readme.md" />
     <File Path="skills\shiny-permissions-msbuild\SKILL.md" />
     <File Path="version.json" />

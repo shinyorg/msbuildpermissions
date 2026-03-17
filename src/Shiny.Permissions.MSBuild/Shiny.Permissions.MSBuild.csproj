@@ -5,7 +5,6 @@
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <RootNamespace>Shiny.Permissions.MSBuild</RootNamespace>
-        <IsPackable>true</IsPackable>
 
         <Description>Android Manifest Permissions and Features - iOS PList Values - MAUI Collective Permissions - but from your CSPROJ</Description>
         <Authors>aritchie;ShinyLib</Authors>
@@ -19,6 +18,15 @@
         <PackageReleaseNotes>https://shinylib.net/client/music/release-notes</PackageReleaseNotes>
         <PackageProjectUrl>https://shinylib.net</PackageProjectUrl>
         <PackageTags>permissions maui android ios shiny</PackageTags>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <IncludeSource>True</IncludeSource>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PublishRepositoryUrl>True</PublishRepositoryUrl>
+        <EmbedUntrackedSources>True</EmbedUntrackedSources>
     </PropertyGroup>
 
     <ItemGroup>
