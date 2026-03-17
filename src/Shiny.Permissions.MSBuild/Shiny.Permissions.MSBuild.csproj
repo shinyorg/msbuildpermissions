@@ -5,6 +5,20 @@
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <RootNamespace>Shiny.Permissions.MSBuild</RootNamespace>
+        <IsPackable>true</IsPackable>
+
+        <Description>Android Manifest Permissions and Features - iOS PList Values - MAUI Collective Permissions - but from your CSPROJ</Description>
+        <Authors>aritchie;ShinyLib</Authors>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/shinyorg/msbuildpermissions</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/shinyorg/msbuildpermissions</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageReleaseNotes>https://shinylib.net/client/music/release-notes</PackageReleaseNotes>
+        <PackageProjectUrl>https://shinylib.net</PackageProjectUrl>
+        <PackageTags>permissions maui android ios shiny</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,5 +33,4 @@
     <ItemGroup>
         <None Include="build\**" Pack="true" PackagePath="build\"/>
     </ItemGroup>
-
 </Project>
