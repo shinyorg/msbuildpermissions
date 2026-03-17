@@ -68,7 +68,7 @@ public class InfoPlistGeneratorTests
             new InfoPlistEntry
             {
                 Key = "BGTaskSchedulerPermittedIdentifiers",
-                Type = "array",
+                Type = "stringarray",
                 Value = "com.shiny.job;com.shiny.jobpower;com.shiny.jobnet"
             },
         };
@@ -80,7 +80,7 @@ public class InfoPlistGeneratorTests
     {
         var entries = new[]
         {
-            new InfoPlistEntry { Key = "K", Type = "array", Value = "single.item" },
+            new InfoPlistEntry { Key = "K", Type = "stringarray", Value = "single.item" },
         };
         return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
     }
@@ -90,7 +90,7 @@ public class InfoPlistGeneratorTests
     {
         var entries = new[]
         {
-            new InfoPlistEntry { Key = "K", Type = "array", Value = " item1 ; item2 ; item3 " },
+            new InfoPlistEntry { Key = "K", Type = "stringarray", Value = " item1 ; item2 ; item3 " },
         };
         return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
     }
@@ -100,7 +100,7 @@ public class InfoPlistGeneratorTests
     {
         var entries = new[]
         {
-            new InfoPlistEntry { Key = "K", Type = "array", Value = "a;;;b" },
+            new InfoPlistEntry { Key = "K", Type = "stringarray", Value = "a;;;b" },
         };
         return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
     }
@@ -135,9 +135,97 @@ public class InfoPlistGeneratorTests
             new InfoPlistEntry
             {
                 Key = "BGTaskSchedulerPermittedIdentifiers",
-                Type = "array",
+                Type = "stringarray",
                 Value = "com.shiny.job;com.shiny.jobpower;com.shiny.jobnet;com.shiny.jobpowernet"
             },
+        };
+        return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
+    }
+
+    [Fact]
+    public Task IntegerArray()
+    {
+        var entries = new[]
+        {
+            new InfoPlistEntry
+            {
+                Key = "UIDeviceFamily",
+                Type = "integerarray",
+                Value = "1;2"
+            },
+        };
+        return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
+    }
+
+    [Fact]
+    public Task IntegerArraySingleItem()
+    {
+        var entries = new[]
+        {
+            new InfoPlistEntry { Key = "K", Type = "integerarray", Value = "42" },
+        };
+        return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
+    }
+
+    [Fact]
+    public Task IntegerArrayTrimsWhitespace()
+    {
+        var entries = new[]
+        {
+            new InfoPlistEntry { Key = "K", Type = "integerarray", Value = " 1 ; 2 ; 3 " },
+        };
+        return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
+    }
+
+    [Fact]
+    public Task IntegerArraySkipsEmptyEntries()
+    {
+        var entries = new[]
+        {
+            new InfoPlistEntry { Key = "K", Type = "integerarray", Value = "1;;;2" },
+        };
+        return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
+    }
+
+    [Fact]
+    public Task MixedWithIntegerArray()
+    {
+        var entries = new[]
+        {
+            new InfoPlistEntry { Key = "NSCameraUsageDescription", Type = "string", Value = "Camera access" },
+            new InfoPlistEntry { Key = "UIDeviceFamily", Type = "integerarray", Value = "1;2" },
+            new InfoPlistEntry { Key = "UIBackgroundModes", Type = "stringarray", Value = "location;remote-notification" },
+            new InfoPlistEntry { Key = "UIRequiresPersistentWiFi", Type = "boolean", Value = "true" },
+        };
+        return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
+    }
+
+    [Fact]
+    public Task LegacyArrayType()
+    {
+        var entries = new[]
+        {
+            new InfoPlistEntry { Key = "K", Type = "array", Value = "a;b;c" },
+        };
+        return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
+    }
+
+    [Fact]
+    public Task StringArrayCaseInsensitive()
+    {
+        var entries = new[]
+        {
+            new InfoPlistEntry { Key = "K", Type = "StringArray", Value = "a;b" },
+        };
+        return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
+    }
+
+    [Fact]
+    public Task IntegerArrayCaseInsensitive()
+    {
+        var entries = new[]
+        {
+            new InfoPlistEntry { Key = "K", Type = "INTEGERARRAY", Value = "1;2" },
         };
         return Verify(InfoPlistGenerator.GeneratePlistXml(entries));
     }

@@ -66,10 +66,15 @@ Generates `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_LOCATION`, `ACCESS_BACKGROUN
                          Type="boolean"
                          Value="true" />
 
-    <!-- Array (semicolon-delimited) -->
+    <!-- String array (semicolon-delimited) -->
     <InfoPlistPermission Include="LSApplicationQueriesSchemes"
-                         Type="array"
+                         Type="stringarray"
                          Value="fb;instagram;twitter" />
+
+    <!-- Integer array (semicolon-delimited) -->
+    <InfoPlistPermission Include="UIDeviceFamily"
+                         Type="integerarray"
+                         Value="1;2" />
 </ItemGroup>
 ```
 

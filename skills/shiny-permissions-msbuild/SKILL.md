@@ -167,13 +167,14 @@ All iOS usage description strings default to: `"Say something useful here that y
 <ItemGroup>
     <InfoPlistPermission Include="NSCameraUsageDescription" Type="string" Value="We need camera access" />
     <InfoPlistPermission Include="UIRequiresPersistentWiFi" Type="boolean" Value="true" />
-    <InfoPlistPermission Include="LSApplicationQueriesSchemes" Type="array" Value="fb;instagram;twitter" />
+    <InfoPlistPermission Include="LSApplicationQueriesSchemes" Type="stringarray" Value="fb;instagram;twitter" />
+    <InfoPlistPermission Include="UIDeviceFamily" Type="integerarray" Value="1;2" />
 </ItemGroup>
 ```
 
-**Metadata:** `Type` (optional, default `string` — supports `string`, `boolean`/`bool`, `array`), `Value` (optional)
+**Metadata:** `Type` (optional, default `string` — supports `string`, `boolean`/`bool`, `stringarray`, `integerarray`), `Value` (optional)
 
-For arrays, separate items with `;`.
+For arrays, separate items with `;`. Use `stringarray` for `<string>` elements and `integerarray` for `<integer>` elements. The legacy type name `array` is accepted as an alias for `stringarray`.
 
 ## Generated Output Files
 

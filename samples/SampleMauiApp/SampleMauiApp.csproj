@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
+        <TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
         <OutputType>Exe</OutputType>
         <RootNamespace>SampleMauiApp</RootNamespace>
         <UseMaui>true</UseMaui>
@@ -13,6 +13,7 @@
         <ApplicationId>com.shinyorg.samplemauiapp</ApplicationId>
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
+        <MauiVersion>10.0.50</MauiVersion>
 
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21</SupportedOSPlatformVersion>
@@ -35,23 +36,39 @@
          entries automatically at build time.
          ===================================================================== -->
     <ItemGroup>
+        <InfoPlistValue Include="NSSpeechRecognitionUsageDescription" 
+                        Type="String" 
+                        Value="Say something useful here that your users will understand"
+                        Visible="False"/>
+        
+        <AndroidManifestPermission Include="INTERNET"
+                                   Visible="False"/>
+        <AndroidManifestPermission Include="android.permission.ACCESS_NETWORK_STATE"
+                                   Visible="False"/>
+        
         <!-- Camera access for taking photos -->
-        <MauiPermission Include="Camera" />
+        <MauiPermission Include="Camera" 
+                        Visible="False"/>
 
         <!-- Bluetooth LE for device scanning and connectivity -->
-        <MauiPermission Include="BluetoothLE" />
+        <MauiPermission Include="BluetoothLE"
+                        Visible="False"/>
 
         <!-- GPS / network location -->
-        <MauiPermission Include="Location" />
+        <MauiPermission Include="Location"
+                        Visible="False"/>
 
         <!-- Push notifications -->
-        <MauiPermission Include="Push" />
+        <MauiPermission Include="Push"
+                        Visible="False"/>
 
         <!-- Biometric authentication (Face ID / fingerprint) -->
-        <MauiPermission Include="Biometric" />
+        <MauiPermission Include="Biometric"
+                        Visible="False"/>
 
         <!-- Read contacts -->
-        <MauiPermission Include="Contacts" />
+        <MauiPermission Include="Contacts"
+                        Visible="False"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -60,4 +77,7 @@
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    </ItemGroup>
 </Project>

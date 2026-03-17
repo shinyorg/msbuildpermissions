@@ -53,7 +53,7 @@ Fine-grained iOS Info.plist key/value entry.
 | Metadata | Required | Default | Description |
 |---|---|---|---|
 | `Include` | Yes | — | Plist key (e.g. `NSCameraUsageDescription`) |
-| `Type` | No | `string` | `string`, `boolean` / `bool`, or `array` |
+| `Type` | No | `string` | `string`, `boolean` / `bool`, `stringarray`, or `integerarray` |
 | `Value` | No | empty | Value. For arrays, semicolon-delimited (e.g. `fb;instagram;twitter`) |
 
 ## Generator Classes
@@ -149,7 +149,7 @@ public class AndroidFeature
 public class InfoPlistEntry
 {
     public string Key { get; set; }   // e.g. "NSCameraUsageDescription"
-    public string Type { get; set; }  // "string", "boolean", "bool", or "array"
+    public string Type { get; set; }  // "string", "boolean", "bool", "stringarray", or "integerarray"
     public string Value { get; set; } // e.g. "We need camera access" or "fb;instagram"
 }
 ```

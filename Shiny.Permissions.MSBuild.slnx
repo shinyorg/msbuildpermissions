@@ -1,10 +1,13 @@
 <Solution>
   <Folder Name="/Solution/">
+    <File Path=".github\workflows\build.yml" />
+    <File Path=".github\workflows\sync-skills.yml" />
+    <File Path="LICENSE" />
     <File Path="readme.md" />
+    <File Path="skills\shiny-permissions-msbuild\SKILL.md" />
+    <File Path="version.json" />
   </Folder>
+  <Project Path="samples/SampleMauiApp/SampleMauiApp.csproj" />
   <Project Path="src/Shiny.Permissions.MSBuild/Shiny.Permissions.MSBuild.csproj" />
   <Project Path="tests/Shiny.Permissions.MSBuild.Tests/Shiny.Permissions.MSBuild.Tests.csproj" />
-  <Folder Name="/Samples/">
-    <Project Path="samples/SampleMauiApp/SampleMauiApp.csproj" />
-  </Folder>
 </Solution>

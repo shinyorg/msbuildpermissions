@@ -92,6 +92,24 @@ public class MauiPermissionsGeneratorTests
     }
 
     [Fact]
+    public void Resolve_MergedArrayUsesStringArrayType()
+    {
+        var (_, _, plistEntries) = MauiPermissionsGenerator.Resolve(["Location", "Push"]);
+        var bgModes = plistEntries.Single(e => e.Key == "UIBackgroundModes");
+        Assert.Equal("stringarray", bgModes.Type);
+    }
+
+    [Fact]
+    public void Resolve_MergesStringArrayPlistEntries()
+    {
+        var (_, _, plistEntries) = MauiPermissionsGenerator.Resolve(["BluetoothLE", "Location", "Push"]);
+        var bgModes = plistEntries.Single(e => e.Key == "UIBackgroundModes");
+        Assert.Contains("bluetooth-central", bgModes.Value);
+        Assert.Contains("location", bgModes.Value);
+        Assert.Contains("remote-notification", bgModes.Value);
+    }
+
+    [Fact]
     public void Resolve_DeduplicatesStringPlistEntries()
     {
         var (_, _, plistEntries) = MauiPermissionsGenerator.Resolve(["Location", "LocationBackground"]);

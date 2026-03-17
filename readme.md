@@ -140,8 +140,11 @@ Add `InfoPlistPermission` items to your project file:
   <!-- Boolean values -->
   <InfoPlistPermission Include="UIRequiresPersistentWiFi" Type="boolean" Value="true" />
 
-  <!-- Array values (semicolon-delimited) -->
-  <InfoPlistPermission Include="LSApplicationQueriesSchemes" Type="array" Value="fb;instagram;twitter" />
+  <!-- String array values (semicolon-delimited) -->
+  <InfoPlistPermission Include="LSApplicationQueriesSchemes" Type="stringarray" Value="fb;instagram;twitter" />
+
+  <!-- Integer array values (semicolon-delimited) -->
+  <InfoPlistPermission Include="UIDeviceFamily" Type="integerarray" Value="1;2" />
 </ItemGroup>
 ```
 
@@ -162,6 +165,11 @@ This generates `$(IntermediateOutputPath)Info.plist`:
             <string>instagram</string>
             <string>twitter</string>
         </array>
+        <key>UIDeviceFamily</key>
+        <array>
+            <integer>1</integer>
+            <integer>2</integer>
+        </array>
     </dict>
 </plist>
 ```
@@ -170,7 +178,7 @@ This generates `$(IntermediateOutputPath)Info.plist`:
 
 | Metadata | Required | Default | Description |
 |---|---|---|---|
-| `Type` | No | `string` | Value type: `string`, `boolean` / `bool`, or `array` |
+| `Type` | No | `string` | Value type: `string`, `boolean` / `bool`, `stringarray`, or `integerarray` |
 | `Value` | No | empty | The entry value. For arrays, separate items with `;` |
 
 ## Samples

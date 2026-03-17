@@ -1,0 +1,9 @@
+{
+    "solution": {
+        "path": "Shiny.Permissions.MSBuild.slnx",
+        "projects": [
+            "src\\Shiny.Permissions.MSBuild\\Shiny.Permissions.MSBuild.csproj",
+            "tests\\Shiny.Permissions.MSBuild.Tests\\Shiny.Permissions.MSBuild.Tests.csproj"
+        ]
+    }
+}

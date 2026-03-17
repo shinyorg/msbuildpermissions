@@ -26,11 +26,22 @@ public static class InfoPlistGenerator
                 break;
 
             case "array":
+            case "stringarray":
                 sb.AppendLine("<array>");
-                var items = entry.Value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var item in items)
+                var stringItems = entry.Value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var item in stringItems)
                 {
                     sb.AppendLine($"    <string>{item.Trim()}</string>");
+                }
+                sb.Append("</array>");
+                break;
+
+            case "integerarray":
+                sb.AppendLine("<array>");
+                var intItems = entry.Value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var item in intItems)
+                {
+                    sb.AppendLine($"    <integer>{item.Trim()}</integer>");
                 }
                 sb.Append("</array>");
                 break;

@@ -37,7 +37,7 @@ public static class MauiPermissionsGenerator
             Array.Empty<AndroidFeature>(),
             new[]
             {
-                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "array", Value = "bluetooth-central" },
+                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "stringarray", Value = "bluetooth-central" },
                 new InfoPlistEntry { Key = "NSBluetoothAlwaysUsageDescription", Type = "string", Value = DefaultUsageDescription },
             }
         );
@@ -55,7 +55,7 @@ public static class MauiPermissionsGenerator
             },
             new[]
             {
-                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "array", Value = "location" },
+                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "stringarray", Value = "location" },
                 new InfoPlistEntry { Key = "NSLocationAlwaysUsageDescription", Type = "string", Value = DefaultUsageDescription },
                 new InfoPlistEntry { Key = "NSLocationWhenInUseUsageDescription", Type = "string", Value = DefaultUsageDescription },
                 new InfoPlistEntry { Key = "NSLocationAlwaysAndWhenInUseUsageDescription", Type = "string", Value = DefaultUsageDescription },
@@ -77,7 +77,7 @@ public static class MauiPermissionsGenerator
             },
             new[]
             {
-                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "array", Value = "location" },
+                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "stringarray", Value = "location" },
                 new InfoPlistEntry { Key = "NSLocationAlwaysUsageDescription", Type = "string", Value = DefaultUsageDescription },
                 new InfoPlistEntry { Key = "NSLocationWhenInUseUsageDescription", Type = "string", Value = DefaultUsageDescription },
                 new InfoPlistEntry { Key = "NSLocationAlwaysAndWhenInUseUsageDescription", Type = "string", Value = DefaultUsageDescription },
@@ -98,7 +98,7 @@ public static class MauiPermissionsGenerator
             },
             new[]
             {
-                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "array", Value = "location" },
+                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "stringarray", Value = "location" },
                 new InfoPlistEntry { Key = "NSLocationAlwaysUsageDescription", Type = "string", Value = DefaultUsageDescription },
                 new InfoPlistEntry { Key = "NSLocationWhenInUseUsageDescription", Type = "string", Value = DefaultUsageDescription },
                 new InfoPlistEntry { Key = "NSLocationAlwaysAndWhenInUseUsageDescription", Type = "string", Value = DefaultUsageDescription },
@@ -113,7 +113,7 @@ public static class MauiPermissionsGenerator
             Array.Empty<AndroidFeature>(),
             new[]
             {
-                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "array", Value = "remote-notification" },
+                new InfoPlistEntry { Key = "UIBackgroundModes", Type = "stringarray", Value = "remote-notification" },
             }
         );
 
@@ -275,6 +275,11 @@ public static class MauiPermissionsGenerator
         return seen.Values.ToList();
     }
 
+    static readonly HashSet<string> ArrayTypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        "array", "stringarray", "integerarray"
+    };
+
     static List<InfoPlistEntry> MergePlistEntries(List<InfoPlistEntry> entries)
     {
         var merged = new Dictionary<string, InfoPlistEntry>(StringComparer.OrdinalIgnoreCase);
@@ -284,8 +289,8 @@ public static class MauiPermissionsGenerator
             if (merged.TryGetValue(entry.Key, out var existing))
             {
                 // Merge array entries by combining values, preserving insertion order
-                if (existing.Type.Equals("array", StringComparison.OrdinalIgnoreCase) &&
-                    entry.Type.Equals("array", StringComparison.OrdinalIgnoreCase))
+                if (ArrayTypes.Contains(existing.Type) &&
+                    ArrayTypes.Contains(entry.Type))
                 {
                     var existingValues = existing.Value
                         .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
