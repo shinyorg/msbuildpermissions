@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <ItemGroup>
-    <AndroidManifestPermission Include="placeholder" Condition="false" />
-    <AndroidManifestFeature Include="placeholder" Condition="false" />
-    <InfoPlistPermission Include="placeholder" Condition="false" />
-    <MauiPermission Include="placeholder" Condition="false" />
-  </ItemGroup>
+    <ItemGroup>
+        <AndroidManifestPermission Include="placeholder" Condition="false"/>
+        <AndroidManifestFeature Include="placeholder" Condition="false"/>
+        <InfoPlistPermission Include="placeholder" Condition="false"/>
+        <MauiPermission Include="placeholder" Condition="false"/>
+    </ItemGroup>
 </Project>

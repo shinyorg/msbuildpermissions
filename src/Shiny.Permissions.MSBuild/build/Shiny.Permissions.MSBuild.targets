@@ -1,51 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <PropertyGroup>
-    <_ShinyPermissionsAssembly Condition="'$(_ShinyPermissionsAssembly)' == ''">$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll</_ShinyPermissionsAssembly>
-  </PropertyGroup>
+    <PropertyGroup>
+        <_ShinyPermissionsAssembly Condition="'$(_ShinyPermissionsAssembly)' == ''">$(MSBuildThisFileDirectory)..\lib\netstandard2.0\Shiny.Permissions.MSBuild.dll</_ShinyPermissionsAssembly>
+        <BeforeGenerateAndroidManifest>GenerateAndroidManifest;GenerateMauiPermissions;$(BeforeGenerateAndroidManifest)</BeforeGenerateAndroidManifest>
+        <CollectAppManifestsDependsOn>GenerateInfoPlist;GenerateMauiPermissions;$(CollectAppManifestsDependsOn)</CollectAppManifestsDependsOn>
+    </PropertyGroup>
 
-  <UsingTask
-    TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateAndroidManifestTask"
-    AssemblyFile="$(_ShinyPermissionsAssembly)"
-  />
-  <UsingTask
-    TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateInfoPlistTask"
-    AssemblyFile="$(_ShinyPermissionsAssembly)"
-  />
-  <UsingTask
-    TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateMauiPermissionsTask"
-    AssemblyFile="$(_ShinyPermissionsAssembly)"
-  />
-
-  <Target
-    Name="GenerateAndroidManifest"
-    BeforeTargets="Build"
-    Condition="'@(AndroidManifestPermission)' != '' or '@(AndroidManifestFeature)' != ''">
-    <GenerateAndroidManifestTask
-      Permissions="@(AndroidManifestPermission)"
-      Features="@(AndroidManifestFeature)"
-      OutputPath="$(IntermediateOutputPath)AndroidManifest.xml"
+    <UsingTask
+            TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateAndroidManifestTask"
+            AssemblyFile="$(_ShinyPermissionsAssembly)"
     />
-  </Target>
-
-  <Target
-    Name="GenerateInfoPlist"
-    BeforeTargets="Build"
-    Condition="'@(InfoPlistPermission)' != ''">
-    <GenerateInfoPlistTask
-      Entries="@(InfoPlistPermission)"
-      OutputPath="$(IntermediateOutputPath)Info.plist"
+    <UsingTask
+            TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateInfoPlistTask"
+            AssemblyFile="$(_ShinyPermissionsAssembly)"
     />
-  </Target>
-
-  <Target
-    Name="GenerateMauiPermissions"
-    BeforeTargets="Build"
-    Condition="'@(MauiPermission)' != ''">
-    <GenerateMauiPermissionsTask
-      Permissions="@(MauiPermission)"
-      AndroidManifestOutputPath="$(IntermediateOutputPath)AndroidManifest.xml"
-      InfoPlistOutputPath="$(IntermediateOutputPath)Info.plist"
+    <UsingTask
+            TaskName="Shiny.Permissions.MSBuild.Tasks.GenerateMauiPermissionsTask"
+            AssemblyFile="$(_ShinyPermissionsAssembly)"
     />
-  </Target>
+
+    <Target
+            Name="GenerateAndroidManifest"
+            Condition="'@(AndroidManifestPermission)' != '' or '@(AndroidManifestFeature)' != ''">
+        <GenerateAndroidManifestTask
+                Permissions="@(AndroidManifestPermission)"
+                Features="@(AndroidManifestFeature)"
+                OutputPath="$(IntermediateOutputPath)AndroidManifest.xml"
+        />
+    </Target>
+
+    <Target
+            Name="GenerateInfoPlist"
+            Condition="'@(InfoPlistPermission)' != ''">
+        <GenerateInfoPlistTask
+                Entries="@(InfoPlistPermission)"
+                OutputPath="$(IntermediateOutputPath)Info.plist"
+        />
+        <ItemGroup>
+            <PartialAppManifest Include="$(IntermediateOutputPath)Info.plist" />
+        </ItemGroup>
+    </Target>
+
+    <Target
+            Name="GenerateMauiPermissions"
+            Condition="'@(MauiPermission)' != ''">
+        <GenerateMauiPermissionsTask
+                Permissions="@(MauiPermission)"
+                AndroidManifestOutputPath="$(IntermediateOutputPath)AndroidManifest.xml"
+                InfoPlistOutputPath="$(IntermediateOutputPath)Info.plist"
+        />
+        <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'ios' or '$(TargetPlatformIdentifier)' == 'maccatalyst'">
+            <PartialAppManifest Include="$(IntermediateOutputPath)Info.plist" />
+        </ItemGroup>
+    </Target>
 </Project>
